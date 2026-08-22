@@ -381,6 +381,11 @@
   });
 
 
+  // Backend URL: Modal in production, localhost for local dev
+  const API_BASE = window.location.hostname === 'localhost'
+    ? '/api/analyze/stream'
+    : 'https://padalavarun0--trustlens-analyze.modal.run';
+
   // ── SSE Analysis ─────────────────────────────────────────
   function startAnalysis(domain) {
     resetUI();
@@ -389,7 +394,9 @@
     analyzeBtn.disabled = true;
     progressSection.classList.add('visible');
 
-    const url = `/api/analyze/stream?domain=${encodeURIComponent(domain)}`;
+    const url = window.location.hostname === 'localhost'
+      ? `${API_BASE}?domain=${encodeURIComponent(domain)}`
+      : `${API_BASE}?domain=${encodeURIComponent(domain)}`;
 
     currentEventSource = new EventSource(url);
 
