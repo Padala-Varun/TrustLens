@@ -1,0 +1,519 @@
+{
+  "company_domain": "lyzr.ai",
+  "evidence_packet": {
+    "company_domain": "lyzr.ai",
+    "evidence": {
+      "whois": {
+        "available": true,
+        "domain": "lyzr.ai",
+        "creation_date": "None",
+        "expiration_date": "None",
+        "domain_age_years": null,
+        "domain_age_days": null,
+        "registrar": "NAMECHEAP INC",
+        "organization": null,
+        "country": null,
+        "name_servers": null
+      },
+      "website": {
+        "available": true,
+        "website": "https://lyzr.ai",
+        "title": null,
+        "about_page_found": false,
+        "team_page_found": false,
+        "contact_page_found": true,
+        "important_pages": {
+          "about": {
+            "status": "found",
+            "url": "https://lyzr.ai:443/about-us/",
+            "method": "common_path",
+            "text_length": 11266,
+            "text_preview": "About Us | Lyzr AI Skip to content New Lyzr launches Control Plane for AI Agents Access now (opens in a new tab) Solutions By Industry Banking Lending, onboarding, and compliance Insurance Claims, underwriting, and policy Government Secure public-sector AI services Healthcare Patient and clinical workflow agents Fintech Fraud, onboarding, and payments E-commerce Discovery, support, and conversion By Function Revenue Pipeline generation and sales Marketing Content, campaigns, and demand Customer Service Resolution and ticket deflection Human Resources Hiring, onboarding, and people ops Procurement Sourcing, supplier, and contracts Legal Contract review and compliance By Team Compliance & Governance Control plane, audit trails, and RAI AI & Automation Agent building, evaluation, and deployment Revenue & Sales Pipeline intelligence and deal acceleration IT & Platform Agent infrastructure and platform engineering Digital Transformation Enterprise AI strategy and process reimagination By Role CIO Governance, control, and agent infrastructure CTO Sovereign AI and production architecture CEO Agentic OS and enterprise transformation Managing Director Co-sell, joint GTM, and SI partnerships"
+          },
+          "team": {
+            "status": "found",
+            "url": "https://lyzr.ai:443/blueprints/hr/people-self-serve-analytics-agent/",
+            "method": "common_path",
+            "text_length": 11718,
+            "text_preview": "People Self-Serve Analytics Agent Skip to content New Lyzr launches Control Plane for AI Agents Access now (opens in a new tab) Solutions By Industry Banking Lending, onboarding, and compliance Insurance Claims, underwriting, and policy Government Secure public-sector AI services Healthcare Patient and clinical workflow agents Fintech Fraud, onboarding, and payments E-commerce Discovery, support, and conversion By Function Revenue Pipeline generation and sales Marketing Content, campaigns, and demand Customer Service Resolution and ticket deflection Human Resources Hiring, onboarding, and people ops Procurement Sourcing, supplier, and contracts Legal Contract review and compliance By Team Compliance & Governance Control plane, audit trails, and RAI AI & Automation Agent building, evaluation, and deployment Revenue & Sales Pipeline intelligence and deal acceleration IT & Platform Agent infrastructure and platform engineering Digital Transformation Enterprise AI strategy and process reimagination By Role CIO Governance, control, and agent infrastructure CTO Sovereign AI and production architecture CEO Agentic OS and enterprise transformation Managing Director Co-sell, joint GTM, and "
+          },
+          "contact": {
+            "status": "found",
+            "url": "https://lyzr.ai/contact",
+            "method": "common_path",
+            "text_length": 6367,
+            "text_preview": "Contact Lyzr | Enterprise AI Experts Skip to content New Lyzr launches Control Plane for AI Agents Access now (opens in a new tab) Solutions By Industry Banking Lending, onboarding, and compliance Insurance Claims, underwriting, and policy Government Secure public-sector AI services Healthcare Patient and clinical workflow agents Fintech Fraud, onboarding, and payments E-commerce Discovery, support, and conversion By Function Revenue Pipeline generation and sales Marketing Content, campaigns, and demand Customer Service Resolution and ticket deflection Human Resources Hiring, onboarding, and people ops Procurement Sourcing, supplier, and contracts Legal Contract review and compliance By Team Compliance & Governance Control plane, audit trails, and RAI AI & Automation Agent building, evaluation, and deployment Revenue & Sales Pipeline intelligence and deal acceleration IT & Platform Agent infrastructure and platform engineering Digital Transformation Enterprise AI strategy and process reimagination By Role CIO Governance, control, and agent infrastructure CTO Sovereign AI and production architecture CEO Agentic OS and enterprise transformation Managing Director Co-sell, joint GTM, a"
+          }
+        },
+        "social_links_found": 0,
+        "social_links": [],
+        "possible_address": null,
+        "homepage_text": "",
+        "about_text": "",
+        "team_text": ""
+      },
+      "github": {
+        "available": true,
+        "organization": {
+          "login": "NeuralgoLyzr",
+          "name": "Lyzr",
+          "description": "",
+          "github_url": "https://github.com/NeuralgoLyzr",
+          "website": null,
+          "company": null,
+          "location": null,
+          "followers": 19,
+          "created_at": "2023-04-28T05:41:18Z"
+        },
+        "organization_match": {
+          "confidence": "medium",
+          "score": 95,
+          "reasons": [
+            "GitHub organization login contains the company name.",
+            "GitHub organization name exactly matches the company name."
+          ]
+        },
+        "repository_activity": {
+          "public_repo_count": 8,
+          "updated_last_30_days": 2,
+          "updated_last_90_days": 3,
+          "updated_last_365_days": 7
+        },
+        "languages": {
+          "Python": 2,
+          "Shell": 1,
+          "MDX": 1
+        },
+        "total_stars": 1,
+        "total_forks": 0,
+        "top_repositories": [
+          {
+            "name": "general-agent",
+            "description": "A general-purpose GAP (gitagent protocol) agent — driven by gitagent / gitclaw.",
+            "language": "MDX",
+            "stars": 1,
+            "forks": 0,
+            "updated_at": "2026-07-13T06:55:32Z",
+            "days_since_update": 40
+          },
+          {
+            "name": "lyzr-edgespace",
+            "description": "Lyzr Edgespace for macOS — private AI workspace with local models. One-line install.",
+            "language": "Shell",
+            "stars": 0,
+            "forks": 0,
+            "updated_at": "2026-08-13T15:13:05Z",
+            "days_since_update": 9
+          },
+          {
+            "name": "aci-archive",
+            "description": "ACI.dev is the open source tool-calling platform that hooks up 600+ tools into any agentic IDE or custom AI agent through direct function calling or a unified MCP server. The birthplace of VibeOps.",
+            "language": "Python",
+            "stars": 0,
+            "forks": 0,
+            "updated_at": "2026-08-06T09:36:26Z",
+            "days_since_update": 16
+          },
+          {
+            "name": "gitagent",
+            "description": "A framework-agnostic, git-native standard for defining AI agents",
+            "language": null,
+            "stars": 0,
+            "forks": 0,
+            "updated_at": "2026-03-13T10:39:16Z",
+            "days_since_update": 162
+          },
+          {
+            "name": "gitagents",
+            "description": null,
+            "language": null,
+            "stars": 0,
+            "forks": 0,
+            "updated_at": "2026-02-16T12:38:36Z",
+            "days_since_update": 187
+          },
+          {
+            "name": "nlm-ingestor",
+            "description": "This repo provides the server side code for llmsherpa API to connect. It includes parsers for various file formats.",
+            "language": null,
+            "stars": 0,
+            "forks": 0,
+            "updated_at": "2026-02-09T05:48:42Z",
+            "days_since_update": 194
+          },
+          {
+            "name": "aci-pvt",
+            "description": "ACI.dev is the open source tool-calling platform that hooks up 600+ tools into any agentic IDE or custom AI agent through direct function calling or a unified MCP server. The birthplace of VibeOps.",
+            "language": null,
+            "stars": 0,
+            "forks": 0,
+            "updated_at": "2025-09-27T14:57:21Z",
+            "days_since_update": 329
+          },
+          {
+            "name": "lyzr",
+            "description": null,
+            "language": "Python",
+            "stars": 0,
+            "forks": 0,
+            "updated_at": "2023-11-26T17:03:56Z",
+            "days_since_update": 1000
+          }
+        ],
+        "derived_signals": [
+          {
+            "signal": "probable_github_organization",
+            "level": "positive",
+            "reason": "The GitHub organization has strong name-based evidence linking it to the company."
+          },
+          {
+            "signal": "public_engineering_presence",
+            "level": "neutral",
+            "reason": "8 public repositories were observed."
+          },
+          {
+            "signal": "recent_github_activity",
+            "level": "positive",
+            "reason": "3 public repositories were updated within 90 days."
+          }
+        ],
+        "limitations": [
+          "Only public GitHub data is analyzed.",
+          "Private repositories and internal engineering activity are not visible.",
+          "Repository count alone does not indicate company legitimacy.",
+          "GitHub activity should be treated as supporting evidence rather than proof of legitimacy."
+        ]
+      },
+      "external_search": {
+        "available": true,
+        "company_name": "lyzr",
+        "company_domain": "lyzr.ai",
+        "evidence_statistics": {
+          "total_relevant_results": 31,
+          "source_types": {
+            "social_media": 5,
+            "unknown": 11,
+            "funding_database": 1,
+            "official_company": 6,
+            "reputable_news": 1,
+            "review_platform": 7
+          },
+          "confidence_levels": {
+            "low": 16,
+            "medium": 8,
+            "high": 7
+          }
+        },
+        "categories": {
+          "funding": {
+            "result_count": 5,
+            "results": [
+              {
+                "title": "Instagram",
+                "url": "https://www.instagram.com/p/DQdznuWjQVh",
+                "content": "#FundingNews  \n  \nLyzr has secured $8 million in a Series A funding round, led by Rocketship .vc.  \n  \nThe round included participation from major strategic investors like Accenture, Firstsource, and GFT Ventures.  \n  \nThe fresh capital will be used to advance Lyzr’s mission of enabling the secure and governed deployment of AI agents across enterprises.  \n  \nLyzr offers a full-stack, low-code framework for building intelligent, reliable AI agents that automate complex business workflows.  \n  \nFounded in 2023, the company already serves a robust client base, with about 70% of its clientele coming from the financial services sector, including firms like WTW and NVIDIA.",
+                "source_type": "social_media",
+                "evidence_confidence": "low",
+                "search_score": 0.8978479
+              },
+              {
+                "title": "AI agent startup Lyzr reportedly raising $100M at $500M ...",
+                "url": "https://siliconangle.com/2026/07/09/ai-agent-startup-lyzr-reportedly-raising-100m-500m-valuation",
+                "content": "UPDATED 16:38 EDT / JULY 09 2026\n\n### AI agent startup Lyzr reportedly raising $100M at $500M valuation\n\nby  Maria Deutscher\n\nLyzr Inc., a startup that helps enterprises build artificial intelligence agents, is reportedly raising a funding round worth about $100 million. \n\nBloomberg today cited sources as saying that the deal has drawn $400 million worth of interest from prospective investors. The group reportedly includes Silicon Valley funds, Middle Eastern venture capital firms and financial institutions. The round is expected to value Lyzr at $500 million, double what it was worth in March. [...] According to Bloomberg, Lyzr is using one of its agents to process inbound queries about the",
+                "source_type": "unknown",
+                "evidence_confidence": "low",
+                "search_score": 0.8412138
+              },
+              {
+                "title": "Lyzr - 2026 Company Profile, Team, Funding & Competitors - TracxnLyzr 2026 Company Profile: Valuation, Funding & Investors ...Lyzr Secures $100M After AI Agent Ran Its Own FundraiseLyzr - Crunchbase Company Profile & FundingAn AI agent startup just let its agent run its $100M fundraiseLyzr - Financial Details - Crunchbase",
+                "url": "https://tracxn.com/d/companies/lyzr/__3iNuwF28pWvfOkygQJziJIfs1U-wu38eTORcpSBqjqo",
+                "content": "JavaScript is disabled in your browser. enable it to enjoy the full features of Tracxn.\n\nTracxn.com\nAndroid\nApple\nChrome Web Store\nFirefox Extension\ntracxn ai suite\n\nAI-powered market intelligence across companies, investors, and sectors.\n\nLogo for Lyzr\n\n# Lyzr - Company Profile\n\nlock\nlock\nlock\nlock\nlock\n\n## Lyzr - About the company\n\n### Company Details\n\nX\n\n## Legal entities associated with Lyzr\n\n| Legal Entity Name | Date of Incorporation | Revenue | Latest Employee Count | Documents |\n ---  --- \n| DANIC PRODCOM LEMN SRL CIN: 7631254 , Romania, Active |   - \n| LYZR, INC. CIN: 7631254 , United States, Active | Aug 18, 2023  - \n\nPDF Illustration Image\n\n## Lyzr's funding and investors\n\nLyzr ha",
+                "source_type": "funding_database",
+                "evidence_confidence": "medium",
+                "search_score": 0.84027237
+              },
+              {
+                "title": "Agentic AI Infrastructure Firm Lyzr AI Raises $14.5 Million at $250 Million Valuation - Finovate",
+                "url": "https://finovate.com/agentic-ai-infrastructure-firm-lyzr-ai-raises-14-5-million-at-250-million-valuation",
+                "content": "Agentic AI infrastructure platform Lyzr AI has secured $14.5 million in a Series A+ round led by Accenture. The investment gives the Jersey City, New Jersey-based startup a valuation of $250 million, and comes less than a year after the company’s $8 million Series A round in October. In a statement on its LinkedIn page, Lyzr AI noted that the investment will help it further develop its “foundational technology platform to power the post-generative AI landscape.” [...] Lyzr’s platform enables companies to build, design, and deploy AI agents that can complete tasks, interact with enterprise tools and data sources, and automate workflows including customer onboarding, loan servicing and origina",
+                "source_type": "unknown",
+                "evidence_confidence": "low",
+                "search_score": 0.829285
+              },
+              {
+                "title": "Ai Agent company Lyzr raises 100 million in section B funding using ...",
+                "url": "https://www.reddit.com/r/AI_Agents/comments/1usqa83/ai_agent_company_lyzr_raises_100_million_in",
+                "content": "The investor activity in the funding round was above $400 million before the Series B fundraising reached $100 million at a $500 million",
+                "source_type": "unknown",
+                "evidence_confidence": "low",
+                "search_score": 0.82728493
+              }
+            ]
+          },
+          "founders": {
+            "result_count": 5,
+            "results": [
+              {
+                "title": "Lyzr AI Revenue 2026: $12M ARR, $250M Valuation",
+                "url": "https://getlatka.com/companies/lyzr.ai",
+                "content": "## Founder / CEO\n\n### Siva Surendira\n\nCEO\n\nSiva Surendira is the CEO and founder of Lyzr AI. He began his career in 2008 as a big data engineer at Tesco in Bangalore. In 2015 he founded Power Up Cloud, an AWS consulting firm, which he sold in an all-cash deal in 2019 to LTI, a large global system integrator. As part of the acquisition he relocated to the United States in 2020 and took over LTI's global AWS business unit, which was generating $65 million in revenue when he assumed leadership. He grew the unit to $220 million in under two and a half years and produced approximately $400 million in cumulative revenue for the business unit over three years before his contractual obligations conc",
+                "source_type": "unknown",
+                "evidence_confidence": "low",
+                "search_score": 0.88822687
+              },
+              {
+                "title": "FinovateFall 2025 – Lyzr AI - Finovate",
+                "url": "https://finovate.com/videos/finovatefall-2025-lyzr-ai",
+                "content": "Credit Union/Community Bank Fit: Credit unions and community banks\n\n## Contacts:\n\nBus. Dev.: Siva Surendira (Founder & CEO), (/cdn-cgi/l/email-protection#7e0d17081f3e1207040c501f17), 848-469-9297  \nPress: Anirudh Narayan (Co-Founder & CGO), (/cdn-cgi/l/email-protection#c1a0afa881adb8bbb3efa0a8), 968-662-7129\n\nShare this:\n\nWebsite: lyzr.ai  \nLinkedIn: linkedin.com/company/lyzr-platform\n\nHQ: Jersey City, NJ, USA  \nFounded: 2023  \nProduct Demoed: Lyzr Studio  \nMetrics: $2.5M Total Capital, $2M ARR, 70 member team  \nPresenter: Siva Surendira – Founder & CEO, Lyzr AI\n\n### Key Stats\n\nSiva Surendira (Founder & CEO)\n\nSiva Surendira (Founder & CEO)\n\nBGV, Arka Venture Labs, Artha99, Tremis Capital, Co",
+                "source_type": "unknown",
+                "evidence_confidence": "low",
+                "search_score": 0.8732259
+              },
+              {
+                "title": "Siva Surendira - Co-Founder & Chief Executive Officer at Lyzr",
+                "url": "https://www.zoominfo.com/p/Siva-Surendira/1987079061",
+                "content": "Siva Surendira serves as Chief Executive Officer for Lyzr Inc based at New York City, New York.Explore",
+                "source_type": "unknown",
+                "evidence_confidence": "low",
+                "search_score": 0.8488849
+              },
+              {
+                "title": "Siva Surendira | Founder & CEO - Lyzr.ai | Forbes Technology Council",
+                "url": "https://councils.forbes.com/profile/Siva-Surendira-Founder-CEO-Lyzr-ai/9881ed18-b632-4485-9dc2-8ecadaeffd61",
+                "content": "Forbes Technology Council\n\nLog inDo I Qualify?\n\nDo I Qualify?\n\nSiva Surendira's avatar\n\n# Siva Surendira\n\n## Founder & CEOLyzr.ai\n\nNew York, NY\n\n### Skills\n\nArtificial Intelligence\n\nProduct Development\n\nEntrepreneurship\n\n### About\n\nSiva Surendira is the Founder and CEO of Lyzr AI, the agent infrastructure platform for enterprises, serving Fortune 500 organizations across finance, retail, and government. A two-time founder, he previously built PowerUpCloud, an AWS consulting firm acquired by L&T Group in 2019. Before founding his own companies, Siva held data engineering roles at Tesco. He started Lyzr in 2023 with a focus on secure, sovereign AI infrastructure that lets large enterprises dep",
+                "source_type": "reputable_news",
+                "evidence_confidence": "high",
+                "search_score": 0.81979275
+              },
+              {
+                "title": "Founder Insights on Enterprise AI",
+                "url": "http://www.lyzr.ai/founders-corner",
+                "content": "Watch it directly ↗\n\nLinkedIn\n\nTitle\n\nView source ↗\n\n# Founder’s blog spot\n\nSiva Surendira, Founder & CEO of Lyzr, shares his unique insights and perspectives on Lyzr and the future of AI agents. Dive in as he explores everything from building reliable AI agents to the evolution of Organizational General Intelligence (OGI) and the balance between automation, trust, and user experience.\n\nFollow me\n\n Linkedin\n\nSiva Surendira, Founder and CEO of Lyzr [...] Skip to content\n\nNew   Lyzr launches Control Plane for AI Agents   Access now (opens in a new tab)\n\nBy Industry\n\nBanking↗ Insurance↗ Government↗ Healthcare↗ Fintech↗ E-commerce↗\n\nBy Function\n\nRevenue↗ Marketing↗ Customer Service↗ Human Resour",
+                "source_type": "official_company",
+                "evidence_confidence": "high",
+                "search_score": 0.8051581
+              }
+            ]
+          },
+          "company_reviews": {
+            "result_count": 5,
+            "results": [
+              {
+                "title": "Life at Lyzr: Culture, Salary, Reviews, Interviews & moreCompanies & Reviews | GlassdoorCompany Reviews and Ratings By Employees | AmbitionBoxLyzr.ai Reviews 2026: Details, Pricing, & Features | G2Glassdoor Company Research Evaluation: Reviews, Ratings ...12 Best Company Review Sites (Find Honest Reviews in 2026)",
+                "url": "https://www.ambitionbox.com/overview/lyzr-overview",
+                "content": "Dec 27, 2024 · Lyzr is rated 4.8 out of 5 stars on AmbitionBox, based on 8 company reviews. This rating reflects a generally positive employee experience, indicating satisfaction with the company’s work culture, benefits, and career growth opportunities. AmbitionBox gathers authentic employee reviews and ratings, making it a trusted platform for job seekers and employees in India. Glassdoor - Free company reviews for 2,334,000+ companies. All posted anonymously by employees. Discover 1 Crore+ Company Reviews and Ratings on AmbitionBox.com. Find Popular Company Reviews from over 1.5 Crore+ employees and read reviews on salaries, working hours, work culture, office environment, and more. Filte",
+                "source_type": "review_platform",
+                "evidence_confidence": "medium",
+                "search_score": 0.90810597
+              },
+              {
+                "title": "Working at Lyzr",
+                "url": "https://www.glassdoor.com/Overview/Working-at-Lyzr-EI_IE9233584.11,15.htm",
+                "content": "Lyzr has an employee rating of 4.1 out of 5 stars, based on 17 company reviews on Glassdoor which indicates that most employees have an excellent working",
+                "source_type": "review_platform",
+                "evidence_confidence": "medium",
+                "search_score": 0.8412138
+              },
+              {
+                "title": "Lyzr Reviews (16): Pros & Cons of Working At Lyzr",
+                "url": "https://www.glassdoor.com/Reviews/Lyzr-Reviews-E9233584.htm",
+                "content": "Lyzr has an employee rating of 4.0 out of 5 stars, based on 16 company reviews on Glassdoor ・ 88% of Lyzr employees would recommend working there to a friend",
+                "source_type": "review_platform",
+                "evidence_confidence": "medium",
+                "search_score": 0.8098936
+              },
+              {
+                "title": "Lyzr Reviews | Glassdoor",
+                "url": "https://www.glassdoor.co.in/Reviews/Lyzr-Reviews-E9233584.htm",
+                "content": "Employees also rated Lyzr 3.7 out of 5 for work life balance, 4.3 for culture and values and 4.0 for career opportunities.",
+                "source_type": "unknown",
+                "evidence_confidence": "low",
+                "search_score": 0.78334314
+              },
+              {
+                "title": "Lyzr Reviews by 10+ Employees | Rated 3.5/5",
+                "url": "https://www.ambitionbox.com/reviews/lyzr-reviews",
+                "content": "Lyzr is rated 3.5/5, based on 10+ employee reviews. Lyzr is highly rated for Company culture with 3.9/5. Company culture holds the highest rating at 3.9, while",
+                "source_type": "review_platform",
+                "evidence_confidence": "medium",
+                "search_score": 0.7827459
+              }
+            ]
+          },
+          "negative_news": {
+            "result_count": 0,
+            "results": []
+          },
+          "company_presence": {
+            "result_count": 5,
+            "results": [
+              {
+                "title": "Lyzr AI and Persistent Announce Strategic Partnership to Accelerate Enterprise Process Modernization - The MetroWest Daily News",
+                "url": "https://www.metrowestdailynews.com/press-release/story/475733/lyzr-ai-and-persistent-announce-strategic-partnership-to-accelerate-enterprise-process-modernization",
+                "content": "About Lyzr  \nLyzr is an enterprise agent orchestration company that combines a comprehensive self-service platform with expert services to help organizations deploy AI agents for mission-critical functions. Unlike DIY open-source platforms or single-product competitors, Lyzr provides Forward Deployed Engineers who work directly with customers to move agents into production with true governance and security.\n\nThe company’s open-source platform ensures no vendor lock-in while providing the architecture-level innovations that improve the probability of AI implementation success. Lyzr serves customers across banking, insurance, and enterprise consulting sectors.\n\nAbout Persistent Systems [...] A",
+                "source_type": "unknown",
+                "evidence_confidence": "low",
+                "search_score": 0.86954874
+              },
+              {
+                "title": "Customers who trusted us",
+                "url": "http://www.lyzr.ai/customers",
+                "content": "Watch it directly ↗\n\nLinkedIn\n\nTitle\n\nView source ↗\n\nCustomer Success Stories\n\n# Meet the companies building with Lyzr.\n\nInnovation isn’t just about tech — it’s about trust. Here are the companies who partnered with Lyzr to move forward.\n\nExplore Agents → View Case Studies →\n\n0%\n\nAI Agents deployed in under 30 days\n\n0%\n\nBroader adoption across enterprise teams\n\n0%\n\nBoosted user engagement rates\n\nScroll\n\nTrusted by teams at leading enterprises worldwide\n\nAWS\n\nHitachi\n\nAccenture\n\nNTT Data\n\nMove\n\nAWS\n\nHitachi\n\nAccenture\n\nNTT Data\n\nAWS\n\nHitachi\n\nAccenture\n\nNTT Data\n\nAWS\n\nHitachi\n\nAccenture\n\nNTT Data\n\nMeesho\n\nAirAsia\n\nL&T\n\nPersistent\n\nMeesho\n\nAirAsia\n\nL&T\n\nPersistent\n\nMeesho\n\nAirAsia\n\nL&T\n\nPersis",
+                "source_type": "official_company",
+                "evidence_confidence": "high",
+                "search_score": 0.8170061
+              },
+              {
+                "title": "Instagram",
+                "url": "https://www.instagram.com/p/DQq6c1DiIOg",
+                "content": "•\n\nFollow\n\nmovate_inc's profile picture\n\nmovate\\_inc\n\nWe’re excited to announce our strategic partnership with Lyzr.ai, a leading enterprise AI agent platform, to accelerate enterprise AI transformation, helping businesses scale AI responsibly and effectively across IT and business operations.  \n  \nBy integrating Lyzr’s Agent Studio into our MovateAI Platform, enterprises can now build custom AI agents and workflows that enhance decision-making, optimize delivery, and drive measurable ROI.  \n  \nThis partnership reflects our shared vision to turn AI from a trend into a business-wide transformation engine.  \n  \nRead the full story:   \n  \n#Movate #AI #EnterpriseAI #Partnership #DigitalTransform",
+                "source_type": "social_media",
+                "evidence_confidence": "low",
+                "search_score": 0.7771143
+              },
+              {
+                "title": "Persistent & Lyzr: Enterprise-ready Agentic AI solutions",
+                "url": "https://www.persistent.com/partner-ecosystem/lyzr",
+                "content": "The Persistent-Lyzr partnership empowers enterprises to deploy AI agents that go beyond task execution to become true workflow transformers. These agents are purpose-built to operate across core business functions, seamlessly integrate with legacy and cloud systems, and adapt to industry-specific requirements. From automating claims processing in insurance, supporting underwriting in banking, enabling intelligent customer service, to monitoring risk and compliance, the solutions deliver tangible outcomes that drive efficiency, accuracy, and ROI.\n\n            A leading insurer exemplifies the transformative impact of this partnership. By implementing Persistent and Lyzr’s multi-agent orchestr",
+                "source_type": "unknown",
+                "evidence_confidence": "low",
+                "search_score": 0.76173395
+              },
+              {
+                "title": "AI Partner Program for Enterprise Growth | Lyzr AI",
+                "url": "http://www.lyzr.ai/partners",
+                "content": "Skip to content\n\nNew   Lyzr launches Control Plane for AI Agents   Access now (opens in a new tab)\n\nBy Industry\n\nBanking↗ Insurance↗ Government↗ Healthcare↗ Fintech↗ E-commerce↗\n\nBy Function\n\nRevenue↗ Marketing↗ Customer Service↗ Human Resources↗ Procurement↗ Legal↗\n\nBy Team\n\nCompliance & Governance↗ AI & Automation↗ Revenue & Sales↗ IT & Platform↗ Digital Transformation↗\n\nBy Role\n\nCIO↗ CTO↗ CEO↗ Managing Director↗ Head of AI↗\n\nProducts\n\nAgent Studio↗ Architect↗ Control PlaneNew↗ Agentic OSNew↗ Sovereign AINew↗ Lyzr Nitro↗ Lyzr Optimus↗\n\nModules\n\nResponsible AI↗ Orchestration as a Service↗ Agents as a Service↗ Types of Agents↗ Hallucination Manager↗ Knowledge Base↗ Knowledge Graph↗\n\nOpen Sou",
+                "source_type": "official_company",
+                "evidence_confidence": "high",
+                "search_score": 0.7352811
+              }
+            ]
+          }
+        },
+        "limitations": [
+          "Search relevance filtering is based primarily on company name and domain matching.",
+          "Companies with common names may still produce ambiguous search results.",
+          "Search snippets are not independently verified facts.",
+          "The absence of negative news does not prove the absence of risk.",
+          "Negative or positive claims should be verified using the linked sources."
+        ]
+      }
+    },
+    "reasoning_rules": [
+      "Evaluate only the evidence provided.",
+      "Do not invent facts that are not present in the evidence.",
+      "Missing information is not automatically a negative signal.",
+      "A collector failing to find something does not prove that it does not exist.",
+      "Website scraping limitations may result from JavaScript rendering, unusual navigation, robots rules, or crawler limitations.",
+      "The absence of a GitHub organization does not indicate fraud or lack of engineering activity.",
+      "Private GitHub repositories and internal engineering activity are not visible.",
+      "The absence of funding information does not indicate illegitimacy.",
+      "The absence of negative news does not prove the absence of risk.",
+      "Search snippets are evidence pointers and should not automatically be treated as verified facts.",
+      "Official company sources may describe claims but independent sources provide stronger external corroboration.",
+      "A well-known brand should not receive a negative assessment solely because the website collector did not find an About page, Team page, social link, or physical address.",
+      "Distinguish clearly between positive evidence, neutral absence of evidence, information requiring verification, and genuine inconsistencies.",
+      "Only call something suspicious when there is concrete evidence of a contradiction, inconsistency, or materially concerning signal.",
+      "Repository count, social media presence, funding information, and domain age are supporting signals rather than standalone proof of legitimacy."
+    ]
+  },
+  "analysis": {
+    "success": true,
+    "analysis": {
+      "company": "lyzr.ai",
+      "trust_score": 82,
+      "assessment": "likely_real_but_limited_evidence",
+      "confidence": "medium",
+      "summary": "Lyzr.ai demonstrates multiple positive signals of being a real operating company, including a functional website with detailed industry solutions, a GitHub organization with recent activity, and external corroboration of funding and leadership. However, some evidence is limited or indirect, and independent verification of certain claims is not fully established.",
+      "positive_signals": [
+        {
+          "signal": "Functional company website with detailed industry solutions and contact page",
+          "source": "website",
+          "evidence": "The website (lyzr.ai) is available and includes an About page with detailed industry solutions (Banking, Insurance, Government, Healthcare, Fintech, E-commerce), a contact page, and a customers page listing enterprise partners (AWS, Hitachi, Accenture, NTT Data, etc.)."
+        },
+        {
+          "signal": "GitHub organization with name match and recent activity",
+          "source": "github",
+          "evidence": "GitHub organization 'NeuralgoLyzr' (name: 'Lyzr') shows a high-confidence name match (95%) and has 8 public repositories, with 3 updated in the last 90 days. The organization was created in April 2023."
+        },
+        {
+          "signal": "External corroboration of funding and leadership",
+          "source": "external_search",
+          "evidence": "Multiple sources (including reputable news and funding databases) report funding rounds (e.g., $8M Series A, $14.5M Series A+, $100M Series B) and identify Siva Surendira as founder/CEO. Forbes Technology Council profile provides high-confidence evidence of leadership."
+        },
+        {
+          "signal": "Partnerships and customer presence",
+          "source": "external_search",
+          "evidence": "Official website lists enterprise customers (AWS, Hitachi, Accenture, NTT Data, etc.) and partners (Persistent, Movate). A press release mentions a strategic partnership with Persistent."
+        },
+        {
+          "signal": "Employee reviews and company culture signals",
+          "source": "external_search",
+          "evidence": "Employee review platforms (Glassdoor, AmbitionBox) show positive ratings (4.0-4.8/5) for company culture and employee satisfaction."
+        }
+      ],
+      "neutral_signals": [
+        {
+          "signal": "WHOIS data lacks organization and location details",
+          "source": "whois",
+          "explanation": "WHOIS data for lyzr.ai shows registrar (Namecheap) but no organization, country, or domain age details. This is a neutral observation and does not contradict other evidence."
+        },
+        {
+          "signal": "No social links found on the homepage",
+          "source": "website",
+          "explanation": "The website scraper did not find social media links on the homepage. This is a collection limitation and not evidence of absence."
+        },
+        {
+          "signal": "GitHub organization has low follower count",
+          "source": "github",
+          "explanation": "The GitHub organization has only 19 followers, which is a neutral signal and does not indicate fraud or lack of activity."
+        },
+        {
+          "signal": "Some funding claims have low confidence",
+          "source": "external_search",
+          "explanation": "Certain funding claims (e.g., $100M Series B) come from low-confidence sources (social media, Reddit). Higher-confidence sources (Forbes, Finovate) corroborate funding but not all details."
+        }
+      ],
+      "risk_signals": [],
+      "missing_information": [
+        "No physical address confirmed on the website (only 'Jersey City, NJ, USA' mentioned in external sources).",
+        "No independent verification of funding amounts or valuation from primary sources (e.g., SEC filings).",
+        "No direct confirmation of employee count or revenue from official sources.",
+        "WHOIS data lacks organization and location details, but this is not contradictory."
+      ],
+      "evidence_trail": [
+        {
+          "claim": "Company website is functional and contains detailed industry solutions and contact information",
+          "source": "website",
+          "strength": "high"
+        },
+        {
+          "claim": "GitHub organization 'NeuralgoLyzr' matches company name with high confidence and shows recent activity",
+          "source": "github",
+          "strength": "high"
+        },
+        {
+          "claim": "External sources corroborate funding rounds and leadership (Siva Surendira as CEO)",
+          "source": "external_search",
+          "strength": "medium"
+        },
+        {
+          "claim": "Official website lists enterprise customers and partners",
+          "source": "website",
+          "strength": "high"
+        },
+        {
+          "claim": "Employee reviews indicate positive company culture",
+          "source": "external_search",
+          "strength": "medium"
+        },
+        {
+          "claim": "WHOIS data lacks organization and location details",
+          "source": "whois",
+          "strength": "low"
+        }
+      ],
+      "reasoning": "Lyzr.ai presents multiple strong signals of being a real operating company: a functional website with detailed industry solutions, a GitHub organization with a high-confidence name match and recent activity, and external corroboration of funding and leadership. The company's enterprise customer list (including AWS, Hitachi, Accenture) and partnerships (Persistent, Movate) further support its legitimacy. However, some evidence is indirect or from lower-confidence sources (e.g., social media funding claims). The lack of organization details in WHOIS data is a neutral observation and does not contradict other evidence. No risk signals were identified. The trust score reflects strong but not fully independently verified evidence."
+    }
+  }
+}

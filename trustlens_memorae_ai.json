@@ -1,0 +1,429 @@
+{
+  "company_domain": "memorae.ai",
+  "evidence_packet": {
+    "company_domain": "memorae.ai",
+    "evidence": {
+      "whois": {
+        "available": true,
+        "domain": "memorae.ai",
+        "creation_date": "None",
+        "expiration_date": "None",
+        "domain_age_years": null,
+        "domain_age_days": null,
+        "registrar": "NameCheap, Inc.",
+        "organization": null,
+        "country": null,
+        "name_servers": null
+      },
+      "website": {
+        "available": true,
+        "website": "https://memorae.ai",
+        "title": null,
+        "about_page_found": false,
+        "team_page_found": false,
+        "contact_page_found": true,
+        "important_pages": {
+          "about": {
+            "status": "found",
+            "url": "https://memorae.ai/about",
+            "method": "common_path",
+            "text_length": 46,
+            "text_preview": "Memorae | The memory layer above all your apps"
+          },
+          "team": {
+            "status": "found",
+            "url": "https://memorae.ai/team",
+            "method": "common_path",
+            "text_length": 46,
+            "text_preview": "Memorae | The memory layer above all your apps"
+          },
+          "contact": {
+            "status": "found",
+            "url": "https://memorae.ai/contact",
+            "method": "common_path",
+            "text_length": 46,
+            "text_preview": "Memorae | The memory layer above all your apps"
+          }
+        },
+        "social_links_found": 0,
+        "social_links": [],
+        "possible_address": null,
+        "homepage_text": "",
+        "about_text": "",
+        "team_text": ""
+      },
+      "github": {
+        "available": true,
+        "organization": {
+          "login": "memorae-ai",
+          "name": "Memorae.ai",
+          "description": "",
+          "github_url": "https://github.com/memorae-ai",
+          "website": null,
+          "company": null,
+          "location": null,
+          "followers": 0,
+          "created_at": "2026-05-29T14:39:59Z"
+        },
+        "organization_match": {
+          "confidence": "medium",
+          "score": 75,
+          "reasons": [
+            "GitHub organization login contains the company name.",
+            "GitHub organization name contains the company name."
+          ]
+        },
+        "repository_activity": {
+          "public_repo_count": 0,
+          "updated_last_30_days": 0,
+          "updated_last_90_days": 0,
+          "updated_last_365_days": 0
+        },
+        "languages": {},
+        "total_stars": 0,
+        "total_forks": 0,
+        "top_repositories": [],
+        "derived_signals": [
+          {
+            "signal": "probable_github_organization",
+            "level": "positive",
+            "reason": "The GitHub organization has strong name-based evidence linking it to the company."
+          },
+          {
+            "signal": "no_public_repositories_observed",
+            "level": "neutral",
+            "reason": "No public repositories were observed. Private engineering activity cannot be evaluated."
+          },
+          {
+            "signal": "no_recent_public_activity_observed",
+            "level": "neutral",
+            "reason": "No recent public repository activity was observed. This does not indicate that the company is inactive."
+          }
+        ],
+        "limitations": [
+          "Only public GitHub data is analyzed.",
+          "Private repositories and internal engineering activity are not visible.",
+          "Repository count alone does not indicate company legitimacy.",
+          "GitHub activity should be treated as supporting evidence rather than proof of legitimacy."
+        ]
+      },
+      "external_search": {
+        "available": true,
+        "company_name": "memorae",
+        "company_domain": "memorae.ai",
+        "evidence_statistics": {
+          "total_relevant_results": 19,
+          "source_types": {
+            "unknown": 4,
+            "funding_database": 3,
+            "social_media": 7,
+            "official_company": 2,
+            "review_platform": 3
+          },
+          "confidence_levels": {
+            "low": 11,
+            "medium": 6,
+            "high": 2
+          }
+        },
+        "categories": {
+          "funding": {
+            "result_count": 5,
+            "results": [
+              {
+                "title": "Memorae Funding & Investors - Seed - Dover - VCBacked",
+                "url": "https://www.vcbacked.co/company/memorae",
+                "content": "Memorae has raised $2.0M in total funding. The most recent round was Seed. The last funding was announced in March 2026. Who are Memorae's",
+                "source_type": "unknown",
+                "evidence_confidence": "low",
+                "search_score": 0.82728493
+              },
+              {
+                "title": "Memorae 2026 Company Profile: Valuation, Funding & Investors",
+                "url": "https://pitchbook.com/profiles/company/1395809-02",
+                "content": "Memorae has raised $2M. Who are Memorae's investors? Mucker Capital has invested in Memorae. Data Transparency.",
+                "source_type": "funding_database",
+                "evidence_confidence": "medium",
+                "search_score": 0.769098
+              },
+              {
+                "title": "Memorae AI raised $2M in seed funding led by Mucker Capital ...",
+                "url": "https://nordic9.com/news/memorae-ai-raised-2m-in-seed-funding-led-by-m",
+                "content": "Memorae AI raised $2M in seed funding led by Mucker Capital. · Memorae AI (company) · Kumori Systems raised €3M seed with SETT Spain and investors in Spain.",
+                "source_type": "unknown",
+                "evidence_confidence": "low",
+                "search_score": 0.7482976
+              },
+              {
+                "title": "Memorae AI hit $2.5M ARR with $2M seed round raised and 200K users — May 2026 | ARR Club",
+                "url": "https://www.arr.club/memorae-ai/memorae-ai-hit-2-5m-arr-with-2m-seed-round-raised-and-200k-users",
+                "content": "TERN Group achieved significant traction within three years, reaching over $20M annual recurring revenue (ARR) with 8x year-over-year growth. They have placed 2,000+ professionals, achieved over 1 million patient visits by their nurses, onboarded 650,000+ professionals on their platform, and maintained a 2% customer attrition rate with 92% nurse retention (2-year average). The company operates in 13 countries with 5 offices and has raised $33M from investors including RTP Global, Presight Capital, and LocalGlobe. Future goals include surpassing $100M ARR by 2027, becoming the leading AI healthcare workforce platform in Western Europe, and deploying Agentic AI for healthcare system rebuilding",
+                "source_type": "unknown",
+                "evidence_confidence": "low",
+                "search_score": 0.7325349
+              },
+              {
+                "title": "Memorae AI Opens Series A Funding with Mucker Capital - LinkedIn",
+                "url": "https://www.linkedin.com/posts/alexlorenzo8_less-than-a-month-ago-we-announced-our-2m-activity-7465449243441512449-xtZw",
+                "content": "Less than a month ago, we announced our $2M Seed round led by Mucker Capital Today, we're opening our Series A. At Memorae AI,",
+                "source_type": "social_media",
+                "evidence_confidence": "low",
+                "search_score": 0.7253574
+              }
+            ]
+          },
+          "founders": {
+            "result_count": 5,
+            "results": [
+              {
+                "title": "Memorae AI Raises $2M Seed Round Led by Mucker Capital | Pau Nicolas Casas posted on the topic | LinkedIn",
+                "url": "https://www.linkedin.com/posts/pau-nicolas_introducing-memorae-ai-s-2m-seed-round-activity-7459511623464964097-BVGR",
+                "content": "View profile for Pau Nicolas Casas\n\nCo-Founder & CEO at Memorae. Product & Marketing Growth | AI Agents | Behavioral Economics [...] View profile for Pau Nicolas Casas\n\nCo-Founder & CEO at Memorae. Product & Marketing Growth | AI Agents | Behavioral Economics [...] To view or add a comment, sign in\n\nView organization page for Memorae AI\n\n9,131 followers\n\nAI is creating more than ever.\nMemorae makes sure nothing important gets lost ;)\nBig thanks to Mucker Capital for leading our $2M seed round and backing our vision for the future of memory 🧠🚀\n\nView profile for Pau Nicolas Casas\n\nCo-Founder & CEO at Memorae. Product & Marketing Growth | AI Agents | Behavioral Economics",
+                "source_type": "social_media",
+                "evidence_confidence": "low",
+                "search_score": 0.8668671
+              },
+              {
+                "title": "Introducing Big Bang: Executive Memory Solution | Memorae ...",
+                "url": "https://www.linkedin.com/posts/memorae-ai_after-hundreds-of-requests-from-founders-activity-7419767134097928192-wXsg",
+                "content": "Nicolas Casas Co-Founder & CEO at Memorae. Human-centered operating systems where leadership compounds, culture holds, and the team carries it",
+                "source_type": "social_media",
+                "evidence_confidence": "low",
+                "search_score": 0.8573986
+              },
+              {
+                "title": "Memorae Updates: Shared Memory, Briefing, Dashboard & ...",
+                "url": "https://www.linkedin.com/posts/memorae-ai_memorae-productivity-artificialintelligence-activity-7478011407251181568-J3bI",
+                "content": "Nicolas Casas Co-Founder & CEO at Memorae. Product & Marketing Growth | AI Agents | Behavioral Economics",
+                "source_type": "social_media",
+                "evidence_confidence": "low",
+                "search_score": 0.8571119
+              },
+              {
+                "title": "Memorae AI Reaches 200K+ Users and $2.5M ARR",
+                "url": "https://www.linkedin.com/posts/vimal-tripathi-898a20190_big-moment-for-us-at-memorae-ai-in-the-activity-7459515384438861827-HbJu",
+                "content": "Nicolas Casas Co-Founder & CEO at Memorae. led by Mucker Capital In 12 months. → +200,000 users. → 30 million messages. led by Mucker Capital",
+                "source_type": "social_media",
+                "evidence_confidence": "low",
+                "search_score": 0.85624856
+              },
+              {
+                "title": "Vimal Tripathi Email & Phone Number | Memorae AI ...",
+                "url": "https://rocketreach.co/vimal-tripathi-email_720847585",
+                "content": "Vimal Tripathi, based in New Delhi, DL, IN, is currently a Co-founder and Chief Product Officer at Memorae AI.",
+                "source_type": "unknown",
+                "evidence_confidence": "low",
+                "search_score": 0.82560414
+              }
+            ]
+          },
+          "company_reviews": {
+            "result_count": 3,
+            "results": [
+              {
+                "title": "Memorae AI - AI agent that remembers everything for you, organize your calendar, list your TO DO’s and help you on your daily tasks.",
+                "url": "https://www.linkedin.com/company/memorae-ai",
+                "content": "### Get Directions\nDirections\n\n## Employees\nAlex Lorenzo (N/A):  Prerit Srivastava (N/A):  Ilayda Baloglu (N/A):  Kshitiz Pathak (N/A): \n\n## Similar Companies\nGenera Hub (Business Intelligence Platforms):  (Mataró, Catalonia); OneTap AI Solutions (IT Services and IT Consulting):  (N/A); Noon AI (Software Development):  (New York, NY); Cala (Technology, Information and Internet):  (N/A); yvs.video (Software Development):  (Hyderabad, Telangana); AVIZVA (IT Services and IT Consulting):  (Reston, Virginia); Dolfin (Software Development):  (N/A); shoppin' (Technology, Information and Internet):  (Gurgaon, Haryana); hrGENie (Human Resources Services):  (N/A); Open Cosmos (Defense and Space Manufa",
+                "source_type": "social_media",
+                "evidence_confidence": "low",
+                "search_score": 0.6680367
+              },
+              {
+                "title": "Read Customer Service Reviews of memorae.ai | 3 of 6",
+                "url": "https://www.trustpilot.com/review/memorae.ai?page=3",
+                "content": "Read 41-60 Reviews out of 113. Customers genuinely love how smoothly the platform integrates with messaging apps, 4.2 Great TrustScore 4 out of 5 255 reviews …",
+                "source_type": "review_platform",
+                "evidence_confidence": "medium",
+                "search_score": 0.5976789
+              },
+              {
+                "title": "Read Customer Service Reviews of memorae.ai | 2 of 6",
+                "url": "https://www.trustpilot.com/review/memorae.ai?page=2",
+                "content": "Do you agree with Memorae's 4-star rating? Check out what 255 people have written so far, and share your own experience. | Read 21-40 Reviews out of 113.",
+                "source_type": "review_platform",
+                "evidence_confidence": "medium",
+                "search_score": 0.57236487
+              }
+            ]
+          },
+          "negative_news": {
+            "result_count": 0,
+            "results": []
+          },
+          "company_presence": {
+            "result_count": 4,
+            "results": [
+              {
+                "title": "I've blown £100+ on a yearly subscription to @memorae.ai ...",
+                "url": "https://www.facebook.com/thejeremyvine/videos/ive-blown-100-on-a-yearly-subscription-to-memoraeai-and-it-gaslights-me-every-da/1251504600176191",
+                "content": "This post announces a partnership between China and developing countries, particularly Africa and Botswana, to offer 5,000 AI training",
+                "source_type": "social_media",
+                "evidence_confidence": "low",
+                "search_score": 0.7668008
+              },
+              {
+                "title": "Memorae AI - 2026 Company Profile, Team & Competitors - Tracxn",
+                "url": "https://tracxn.com/d/companies/memorae-ai/__PIDq1B6rj5HoLN64-Q5RLmCiR-qAWaoX8OD-_5Tw6fk",
+                "content": "Logo for Vercept\nLogo for Raycast\nLogo for MacroDroid\nLogo for Lunatask\nLogo for Do It Later\nLogo for i10X\nLogo for Trigger\nLogo for The Librarian\nLogo for Workflow\nLogo for camsteffen.me\nLogo for Memorae AI\nlock\n\n## Memorae AI's Investments and acquisitions\n\n## Reports related to Memorae AI\n\nAn image depicting US Tech Semi Annual Funding Report\n\nUS Tech Semi Annual Funding Report\n\n## FAQs about Memorae AI\n\nAccel Partners\nPartech\nIN-Q-TEL - US\nFujitsu\nTenity\nStanford [...] | 9th | Logo for Workflow  Workflow 2012, San Francisco  (United States), Acquired | Provider of task automation software  Eniac Ventures, General Catalyst  & 3 others | 39/100 |\n| 10th | Logo for camsteffen.me  camsteffen",
+                "source_type": "funding_database",
+                "evidence_confidence": "medium",
+                "search_score": 0.5272928
+              },
+              {
+                "title": "terms of service",
+                "url": "https://memorae.ai/en/terms",
+                "content": "The Service Memorae is an AI-powered memory and productivity service. We may send you service-related messages (for example, security notices,",
+                "source_type": "official_company",
+                "evidence_confidence": "high",
+                "search_score": 0.4804549
+              },
+              {
+                "title": "Read Customer Service Reviews of memorae.ai | 3 of 6",
+                "url": "https://www.trustpilot.com/review/memorae.ai?page=",
+                "content": "Memorae is the memory layer that helps you remember, organise, anticipate, and execute. Capture anything through WhatsApp, Telegram, email, or the App. Manage",
+                "source_type": "review_platform",
+                "evidence_confidence": "medium",
+                "search_score": 0.42105237
+              }
+            ]
+          }
+        },
+        "limitations": [
+          "Search relevance filtering is based primarily on company name and domain matching.",
+          "Companies with common names may still produce ambiguous search results.",
+          "Search snippets are not independently verified facts.",
+          "The absence of negative news does not prove the absence of risk.",
+          "Negative or positive claims should be verified using the linked sources."
+        ]
+      }
+    },
+    "reasoning_rules": [
+      "Evaluate only the evidence provided.",
+      "Do not invent facts that are not present in the evidence.",
+      "Missing information is not automatically a negative signal.",
+      "A collector failing to find something does not prove that it does not exist.",
+      "Website scraping limitations may result from JavaScript rendering, unusual navigation, robots rules, or crawler limitations.",
+      "The absence of a GitHub organization does not indicate fraud or lack of engineering activity.",
+      "Private GitHub repositories and internal engineering activity are not visible.",
+      "The absence of funding information does not indicate illegitimacy.",
+      "The absence of negative news does not prove the absence of risk.",
+      "Search snippets are evidence pointers and should not automatically be treated as verified facts.",
+      "Official company sources may describe claims but independent sources provide stronger external corroboration.",
+      "A well-known brand should not receive a negative assessment solely because the website collector did not find an About page, Team page, social link, or physical address.",
+      "Distinguish clearly between positive evidence, neutral absence of evidence, information requiring verification, and genuine inconsistencies.",
+      "Only call something suspicious when there is concrete evidence of a contradiction, inconsistency, or materially concerning signal.",
+      "Repository count, social media presence, funding information, and domain age are supporting signals rather than standalone proof of legitimacy."
+    ]
+  },
+  "analysis": {
+    "success": true,
+    "analysis": {
+      "company": "memorae.ai",
+      "trust_score": 75,
+      "assessment": "likely_real_but_limited_evidence",
+      "confidence": "medium",
+      "summary": "Memorae.ai shows several positive signals of being a real operating company, including a functional website with contact information, a GitHub organization with name-based matching, and external mentions of funding and founders. However, independent corroboration is limited, and some evidence (e.g., funding claims) comes from lower-confidence sources. No concrete risk signals were observed, but the evidence is not strong enough to warrant a 'strong_evidence_of_real_operation' assessment.",
+      "positive_signals": [
+        {
+          "signal": "functional_website_with_contact_page",
+          "source": "website",
+          "evidence": "The company website (memorae.ai) is available and includes a contact page (https://memorae.ai/contact)."
+        },
+        {
+          "signal": "github_organization_with_name_matching",
+          "source": "github",
+          "evidence": "A GitHub organization (memorae-ai) exists with a name matching the company ('Memorae.ai'). The organization match confidence is medium (75/100)."
+        },
+        {
+          "signal": "funding_mention_from_reputable_source",
+          "source": "external_search",
+          "evidence": "PitchBook (a reputable funding database) mentions Memorae has raised $2M, with Mucker Capital as an investor."
+        },
+        {
+          "signal": "founder_mentions_on_social_media",
+          "source": "external_search",
+          "evidence": "LinkedIn posts identify Pau Nicolas Casas as Co-Founder & CEO of Memorae, providing a human element to the company."
+        },
+        {
+          "signal": "company_presence_in_review_platforms",
+          "source": "external_search",
+          "evidence": "Memorae has a presence on Trustpilot with customer reviews, indicating some level of public engagement."
+        }
+      ],
+      "neutral_signals": [
+        {
+          "signal": "minimal_website_content",
+          "source": "website",
+          "explanation": "The website's about, team, and contact pages contain minimal text (46 characters each), providing little descriptive information about the company."
+        },
+        {
+          "signal": "no_public_github_activity",
+          "source": "github",
+          "explanation": "The GitHub organization has no public repositories, which does not indicate fraud but limits technical corroboration."
+        },
+        {
+          "signal": "limited_independent_corroboration",
+          "source": "external_search",
+          "explanation": "Most external mentions (e.g., funding claims, founder profiles) come from social media or lower-confidence sources, with only PitchBook providing medium-confidence funding data."
+        },
+        {
+          "signal": "no_domain_age_information",
+          "source": "whois",
+          "explanation": "WHOIS data does not provide creation or expiration dates, limiting domain history verification."
+        },
+        {
+          "signal": "no_physical_address_or_social_links",
+          "source": "website",
+          "explanation": "The website does not display a physical address or social media links, though this is not inherently suspicious."
+        }
+      ],
+      "risk_signals": [],
+      "missing_information": [
+        "Domain creation/expiration dates (WHOIS)",
+        "Detailed company description or mission statement",
+        "Physical address or location",
+        "Active public GitHub repositories",
+        "Independent news coverage from reputable outlets",
+        "Verified team member profiles beyond social media"
+      ],
+      "evidence_trail": [
+        {
+          "claim": "Company website is functional and includes a contact page",
+          "source": "website",
+          "strength": "high"
+        },
+        {
+          "claim": "GitHub organization (memorae-ai) exists with name matching the company",
+          "source": "github",
+          "strength": "medium"
+        },
+        {
+          "claim": "PitchBook reports Memorae has raised $2M with Mucker Capital as an investor",
+          "source": "external_search",
+          "strength": "medium"
+        },
+        {
+          "claim": "Founder (Pau Nicolas Casas) is identified on LinkedIn as Co-Founder & CEO",
+          "source": "external_search",
+          "strength": "low"
+        },
+        {
+          "claim": "Memorae has customer reviews on Trustpilot",
+          "source": "external_search",
+          "strength": "medium"
+        },
+        {
+          "claim": "No public GitHub repositories observed",
+          "source": "github",
+          "strength": "low"
+        },
+        {
+          "claim": "WHOIS data lacks domain age information",
+          "source": "whois",
+          "strength": "low"
+        }
+      ],
+      "reasoning": "The evidence supports that Memorae.ai is likely a real operating company, but the strength and consistency of the evidence are limited. The functional website with a contact page, GitHub organization with name matching, and mentions of funding/founders are positive signals. However, the lack of domain age data, minimal website content, no public GitHub activity, and reliance on lower-confidence sources for key claims (e.g., funding) prevent a higher trust score. No concrete risk signals were observed, but the evidence is not strong enough to warrant a 'strong_evidence_of_real_operation' assessment. The trust score of 75 reflects 'likely_real_but_limited_evidence' with medium confidence."
+    }
+  }
+}
