@@ -26,7 +26,7 @@ client = Mistral(
 )
 
 
-MODEL = "mistral-small-latest"
+MODEL = "ministral-14b-2512"
 
 
 # ============================================================
