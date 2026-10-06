@@ -1,4 +1,5 @@
 import os
+import re
 import json
 from urllib.parse import urlparse
 
@@ -58,6 +59,345 @@ def get_company_name(domain):
     domain = clean_domain(domain)
 
     return domain.split(".")[0]
+
+
+# ============================================================
+# COMPANY NAME -> DOMAIN RESOLUTION
+# ============================================================
+
+DOMAIN_PATTERN = re.compile(
+    r"^[a-z0-9-]+(\.[a-z0-9-]+)+$"
+)
+
+
+# Sites that write about companies but are never a
+# company's own website
+NON_COMPANY_DOMAINS = [
+
+    "wikipedia.org",
+    "linkedin.com",
+    "twitter.com",
+    "x.com",
+    "facebook.com",
+    "instagram.com",
+    "youtube.com",
+    "github.com",
+    "medium.com",
+    "reddit.com",
+    "quora.com",
+    "crunchbase.com",
+    "pitchbook.com",
+    "tracxn.com",
+    "dealroom.co",
+    "zoominfo.com",
+    "glassdoor.com",
+    "ambitionbox.com",
+    "g2.com",
+    "trustpilot.com",
+    "techcrunch.com",
+    "forbes.com",
+    "reuters.com",
+    "bloomberg.com",
+    "businessinsider.com",
+    "producthunt.com",
+    "ycombinator.com",
+    "apps.apple.com",
+    "play.google.com"
+]
+
+
+def looks_like_domain(text):
+    """
+    stripe.com -> True
+    Lyzr AI -> False
+    """
+
+    return bool(
+        DOMAIN_PATTERN.match(
+            clean_domain(text)
+        )
+    )
+
+
+# Second-level labels used under country TLDs (tcs.co.in)
+COUNTRY_SECOND_LEVEL = {
+    "co", "com", "org", "net", "ac", "gov", "edu"
+}
+
+
+def registrable_domain(domain):
+    """
+    docs.lyzr.ai -> lyzr.ai
+    www.tcs.co.in -> tcs.co.in
+    """
+
+    labels = domain.split(".")
+
+    if (
+        len(labels) >= 3
+        and labels[-2] in COUNTRY_SECOND_LEVEL
+        and len(labels[-1]) == 2
+    ):
+        return ".".join(labels[-3:])
+
+    return ".".join(labels[-2:])
+
+
+# TLDs companies commonly use for their main site
+GENERIC_TLDS = {
+    "ai", "io", "co", "org", "net", "app", "dev", "tech", "so", "xyz"
+}
+
+
+def tld_preference(domain):
+    """
+    Among equally good matches prefer the global site:
+    zoho.com over zoho.com.cn, stripe.com over stripe.dev.
+    """
+
+    suffix = domain.split(".", 1)[-1]
+
+    if suffix == "com":
+        return 0
+
+    if suffix in GENERIC_TLDS:
+        return 1
+
+    return 2
+
+
+def is_non_company_domain(domain):
+
+    return any(
+        domain == blocked
+        or domain.endswith("." + blocked)
+        for blocked in NON_COMPANY_DOMAINS
+    )
+
+
+# Generic words that make the name search less precise:
+# "Lyzr AI" searches better as "Lyzr"
+GENERIC_NAME_WORDS = {
+    "ai", "inc", "llc", "ltd", "limited", "pvt", "private",
+    "corp", "corporation", "co", "company", "technologies",
+    "technology", "tech", "labs", "software", "solutions",
+    "systems", "group", "global", "the"
+}
+
+
+def strip_generic_words(name):
+
+    kept = [
+        word
+        for word in name.split()
+        if word.lower().strip(".,") not in GENERIC_NAME_WORDS
+    ]
+
+    return " ".join(kept)
+
+
+def find_official_website(name):
+    """
+    Search for the company's website and return
+    (domain, url), or None if no result clearly
+    belongs to the company.
+    """
+
+    response = tavily_client.search(
+
+        query=f"{name} official website",
+
+        search_depth="basic",
+
+        max_results=10,
+
+        include_answer=False,
+
+        include_raw_content=False
+    )
+
+    words = [
+        word
+        for word in re.split(
+            r"[^a-z0-9]+",
+            name.lower()
+        )
+        if word
+    ]
+
+    name_tokens = [
+        word
+        for word in words
+        if len(word) >= 3
+    ]
+
+    # Labels that count as an exact match:
+    # "Lyzr AI" -> lyzr, lyzrai
+    # "Tata Consultancy Services" -> tcs
+    exact_labels = {
+        "".join(name_tokens),
+        "".join(words)
+    }
+
+    if len(words) >= 2:
+        exact_labels.add(
+            "".join(word[0] for word in words)
+        )
+
+    exact_labels.discard("")
+
+    candidates = []
+
+    for position, item in enumerate(
+        response.get("results", [])
+    ):
+
+        url = item.get("url") or ""
+
+        domain = (
+            urlparse(url)
+            .netloc
+            .lower()
+            .split(":")[0]
+        )
+
+        if (
+            not domain
+            or is_non_company_domain(domain)
+        ):
+            continue
+
+        # Compare and return the main domain, so
+        # docs.lyzr.ai counts as lyzr.ai
+        domain = registrable_domain(domain)
+
+        # Only accept results that are clearly about the
+        # company: the domain contains part of the name
+        # (lyzr.ai), or the page title contains the full
+        # name ("TCS: Tata Consultancy Services").
+
+        first_label = domain.split(".")[0]
+
+        exact_match = first_label in exact_labels
+
+        domain_match = any(
+            token in first_label
+            for token in name_tokens
+        )
+
+        title_match = (
+            name.lower()
+            in (item.get("title") or "").lower()
+        )
+
+        # A homepage beats a subpage such as
+        # tata.com/business/tcs
+        is_homepage = (
+            urlparse(url).path.strip("/") == ""
+        )
+
+        if exact_match:
+            rank = 0
+        elif domain_match:
+            rank = 1
+        elif title_match and is_homepage:
+            # A subpage titled with the name is usually a
+            # third-party listing (apps.make.com/lyzr-ai)
+            rank = 2
+        else:
+            continue
+
+        candidates.append((
+            rank,
+            not is_homepage,
+            tld_preference(domain),
+            position,
+            domain,
+            url
+        ))
+
+    if not candidates:
+        return None
+
+    candidates.sort()
+
+    *_, domain, url = candidates[0]
+
+    return domain, url
+
+
+def resolve_company_domain(query):
+    """
+    Turn a company name into its official website domain.
+
+    "Lyzr" -> "lyzr.ai"
+    "stripe.com" -> "stripe.com" (already a domain)
+    """
+
+    query = (query or "").strip()
+
+    if not query:
+
+        return {
+            "success": False,
+            "error": "No company name or domain provided."
+        }
+
+    if looks_like_domain(query):
+
+        return {
+            "success": True,
+            "domain": clean_domain(query),
+            "resolved": False
+        }
+
+    print(
+        f"\n🔎 Resolving official website for: {query}"
+    )
+
+    # Try the name as typed, then without generic words
+    # ("Lyzr AI" -> "Lyzr") if the first search is unclear
+
+    search_names = [query]
+
+    short_name = strip_generic_words(query)
+
+    if short_name and short_name.lower() != query.lower():
+        search_names.append(short_name)
+
+    for name in search_names:
+
+        try:
+            found = find_official_website(name)
+
+        except Exception as error:
+
+            return {
+                "success": False,
+                "error": f"Website lookup failed: {error}"
+            }
+
+        if found:
+
+            domain, url = found
+
+            print(f"✓ Resolved: {query} -> {domain}")
+
+            return {
+                "success": True,
+                "domain": domain,
+                "resolved": True,
+                "source_url": url
+            }
+
+    return {
+        "success": False,
+        "error": (
+            f"Couldn't find an official website for "
+            f"'{query}'. Try entering the domain, "
+            f"e.g. stripe.com."
+        )
+    }
 
 
 # ============================================================

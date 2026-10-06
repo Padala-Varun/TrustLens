@@ -1,4 +1,11 @@
 import json
+import sys
+
+# Collectors print emoji; on Windows a non-UTF-8 stdout raises
+# UnicodeEncodeError and makes every collector fail.
+for stream in (sys.stdout, sys.stderr):
+    if hasattr(stream, "reconfigure"):
+        stream.reconfigure(encoding="utf-8", errors="replace")
 
 from dotenv import load_dotenv
 
@@ -13,7 +20,8 @@ from github_collector import (
 )
 
 from tavily_collector import (
-    collect_search_evidence
+    collect_search_evidence,
+    resolve_company_domain
 )
 
 from evidence_normalizer import (
@@ -54,27 +62,6 @@ def print_section(title):
     print(title)
 
     print("-" * 60)
-
-
-def clean_domain(domain):
-    """
-    Normalize domain input.
-    """
-
-    if not domain:
-        return ""
-
-    domain = domain.strip().lower()
-
-    domain = (
-        domain
-        .replace("https://", "")
-        .replace("http://", "")
-        .replace("www.", "")
-        .split("/")[0]
-    )
-
-    return domain
 
 
 # ============================================================
@@ -218,6 +205,19 @@ def run_github(domain):
                 print(
                     "✓ GitHub evidence collection completed."
                 )
+
+        elif result.get("api_error"):
+
+            print(
+                "✗ GitHub API error."
+            )
+
+            print(
+                result.get(
+                    "error",
+                    "Unknown error."
+                )
+            )
 
         else:
 
@@ -888,21 +888,32 @@ def save_results(
 # MAIN TRUSTLENS PIPELINE
 # ============================================================
 
-def run_trustlens(domain):
+def run_trustlens(user_input):
 
-    domain = clean_domain(
-        domain
+    # Accepts a domain (stripe.com) or a company name (Stripe)
+
+    resolution = resolve_company_domain(
+        user_input
     )
 
-    if not domain:
+    if not resolution["success"]:
 
         print(
-            "\nInvalid domain."
+            f"\n{resolution['error']}"
         )
 
         return
 
+    domain = resolution["domain"]
+
     print_header()
+
+    if resolution.get("resolved"):
+
+        print(
+            f"\nResolved '{user_input.strip()}' "
+            f"-> {domain}"
+        )
 
     print(
         f"\nTarget company domain: {domain}"
@@ -997,10 +1008,10 @@ def run_trustlens(domain):
 
 if __name__ == "__main__":
 
-    domain = input(
-        "\nEnter company domain: "
+    user_input = input(
+        "\nEnter company name or domain: "
     )
 
     run_trustlens(
-        domain
+        user_input
     )

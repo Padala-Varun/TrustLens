@@ -247,10 +247,27 @@ def discover_page(
     return None
 
 
+MIN_PAGE_TEXT_LENGTH = 200
+
+
+def is_real_page(text, homepage_text):
+    """
+    Single-page apps return the same HTML shell for
+    every path, so a 200 response alone does not mean
+    the page exists.
+    """
+
+    return (
+        len(text) >= MIN_PAGE_TEXT_LENGTH
+        and text != homepage_text
+    )
+
+
 def fetch_important_page(
     soup,
     base_url,
-    page_type
+    page_type,
+    homepage_text=""
 ):
 
     discovered_url = discover_page(
@@ -259,72 +276,82 @@ def fetch_important_page(
         page_type
     )
 
+    saw_app_shell = False
+
+    candidates = []
+
     # Try discovered URL first
 
     if discovered_url:
 
-        result = get_page(
-            discovered_url
+        candidates.append(
+            (discovered_url, "homepage_link")
         )
 
-        if result["success"]:
-
-            page_soup = BeautifulSoup(
-                result["html"],
-                "html.parser"
-            )
-
-            text = extract_visible_text(
-                page_soup
-            )
-
-            return {
-
-                "status": "found",
-
-                "url": result["url"],
-
-                "method": "homepage_link",
-
-                "text_length": len(text),
-
-                "text_preview": text[:1200]
-            }
-
-    # Try common paths
+    # Then common paths
 
     for path in COMMON_PATHS[page_type]:
 
-        test_url = (
-            base_url.rstrip("/") +
-            path
+        candidates.append((
+            base_url.rstrip("/") + path,
+            "common_path"
+        ))
+
+    for candidate_url, method in candidates:
+
+        result = get_page(
+            candidate_url
         )
 
-        result = get_page(test_url)
+        if not result["success"]:
+            continue
 
-        if result["success"]:
+        page_soup = BeautifulSoup(
+            result["html"],
+            "html.parser"
+        )
 
-            page_soup = BeautifulSoup(
-                result["html"],
-                "html.parser"
-            )
+        text = extract_visible_text(
+            page_soup
+        )
 
-            text = extract_visible_text(
-                page_soup
-            )
+        if not is_real_page(
+            text,
+            homepage_text
+        ):
 
-            return {
+            saw_app_shell = True
 
-                "status": "found",
+            continue
 
-                "url": result["url"],
+        return {
 
-                "method": "common_path",
+            "status": "found",
 
-                "text_length": len(text),
+            "url": result["url"],
 
-                "text_preview": text[:1200]
-            }
+            "method": method,
+
+            "text_length": len(text),
+
+            "text_preview": text[:1200]
+        }
+
+    if saw_app_shell:
+
+        note = (
+            "Candidate URLs returned the same app shell "
+            "as the homepage (likely a JavaScript-rendered "
+            "site), so page content could not be collected. "
+            "This does not prove that the page does not exist."
+        )
+
+    else:
+
+        note = (
+            "The collector did not discover this page. "
+            "This does not prove that the page does not exist."
+        )
 
     return {
 
@@ -336,10 +363,7 @@ def fetch_important_page(
             "homepage_links_and_common_paths"
         ),
 
-        "note": (
-            "The collector did not discover this page. "
-            "This does not prove that the page does not exist."
-        )
+        "note": note
     }
 
 
@@ -508,6 +532,31 @@ def scrape_company_website(url):
 
     homepage_result = get_page(url)
 
+    # Some sites only serve the www host
+
+    host = urlparse(url).netloc
+
+    if (
+        not homepage_result["success"]
+        and not host.startswith("www.")
+    ):
+
+        www_url = url.replace(
+            "://" + host,
+            "://www." + host,
+            1
+        )
+
+        print(f"   Retrying with: {www_url}")
+
+        www_result = get_page(www_url)
+
+        if www_result["success"]:
+
+            url = www_url
+
+            homepage_result = www_result
+
     if not homepage_result["success"]:
 
         return {
@@ -552,19 +601,22 @@ def scrape_company_website(url):
         "about": fetch_important_page(
             soup,
             final_url,
-            "about"
+            "about",
+            homepage_text
         ),
 
         "team": fetch_important_page(
             soup,
             final_url,
-            "team"
+            "team",
+            homepage_text
         ),
 
         "contact": fetch_important_page(
             soup,
             final_url,
-            "contact"
+            "contact",
+            homepage_text
         )
     }
 

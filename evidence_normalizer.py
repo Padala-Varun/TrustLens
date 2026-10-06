@@ -34,6 +34,32 @@ def normalize_whois(whois_data):
             )
         }
 
+    # whoislook.get_domain_info() returns nested sections
+
+    registration = safe_get(
+        whois_data,
+        "registration",
+        {}
+    ) or {}
+
+    registrant = safe_get(
+        whois_data,
+        "registrant",
+        {}
+    ) or {}
+
+    dns = safe_get(
+        whois_data,
+        "dns",
+        {}
+    ) or {}
+
+    derived_signals = safe_get(
+        whois_data,
+        "derived_signals",
+        {}
+    ) or {}
+
     return {
 
         "available": True,
@@ -43,28 +69,29 @@ def normalize_whois(whois_data):
             "domain"
         ),
 
-        "creation_date": str(
-            safe_get(
-                whois_data,
-                "creation_date"
-            )
+        "creation_date": safe_get(
+            registration,
+            "creation_date"
         ),
 
-        "expiration_date": str(
-            safe_get(
-                whois_data,
-                "expiration_date"
-            )
+        "expiration_date": safe_get(
+            registration,
+            "expiration_date"
         ),
 
         "domain_age_years": safe_get(
-            whois_data,
-            "domain_age_years"
+            registration,
+            "age_years"
         ),
 
         "domain_age_days": safe_get(
-            whois_data,
-            "domain_age_days"
+            registration,
+            "age_days"
+        ),
+
+        "domain_age_signal": safe_get(
+            derived_signals,
+            "domain_age"
         ),
 
         "registrar": safe_get(
@@ -73,18 +100,31 @@ def normalize_whois(whois_data):
         ),
 
         "organization": safe_get(
-            whois_data,
+            registrant,
             "organization"
         ),
 
         "country": safe_get(
-            whois_data,
+            registrant,
             "country"
         ),
 
+        "registrant_publicly_identifiable": safe_get(
+            registrant,
+            "publicly_identifiable",
+            False
+        ),
+
         "name_servers": safe_get(
+            dns,
+            "name_servers",
+            []
+        ),
+
+        "limitations": safe_get(
             whois_data,
-            "name_servers"
+            "limitations",
+            []
         )
     }
 
@@ -112,6 +152,14 @@ def normalize_website(website_data):
             )
         }
 
+    # websiteScrap.scrape_company_website() returns nested sections
+
+    homepage = safe_get(
+        website_data,
+        "homepage",
+        {}
+    ) or {}
+
     important_pages = safe_get(
         website_data,
         "important_pages",
@@ -124,23 +172,78 @@ def normalize_website(website_data):
     ):
         important_pages = {}
 
+    social_presence = safe_get(
+        website_data,
+        "social_presence",
+        {}
+    ) or {}
+
+    address = safe_get(
+        website_data,
+        "address",
+        {}
+    ) or {}
+
     homepage_text = safe_get(
-        website_data,
-        "homepage_text_preview",
+        homepage,
+        "text_preview",
         ""
     ) or ""
 
-    about_text = safe_get(
-        website_data,
-        "about_text_preview",
-        ""
-    ) or ""
+    homepage_text_length = safe_get(
+        homepage,
+        "text_length",
+        len(homepage_text)
+    ) or 0
 
-    team_text = safe_get(
-        website_data,
-        "team_text_preview",
-        ""
-    ) or ""
+    def page_found(page_type):
+
+        page = important_pages.get(
+            page_type
+        )
+
+        return (
+            isinstance(page, dict)
+            and page.get("status") == "found"
+        )
+
+    def page_summary(page_type):
+        """
+        Keep page metadata without the full text.
+        """
+
+        page = important_pages.get(
+            page_type
+        )
+
+        if not isinstance(page, dict):
+            return None
+
+        return {
+            "status": page.get("status"),
+            "url": page.get("url"),
+            "method": page.get("method"),
+            "text_length": page.get("text_length"),
+            "note": page.get("note")
+        }
+
+    def page_text(page_type, limit):
+
+        if not page_found(page_type):
+            return ""
+
+        return (
+            important_pages[page_type].get(
+                "text_preview"
+            )
+            or ""
+        )[:limit]
+
+    social_links = safe_get(
+        social_presence,
+        "links",
+        []
+    ) or []
 
     return {
 
@@ -152,68 +255,84 @@ def normalize_website(website_data):
         ),
 
         "title": safe_get(
-            website_data,
+            homepage,
             "title"
         ),
 
-        "about_page_found": safe_get(
-            website_data,
-            "about_page_found",
-            False
+        "homepage_text_length":
+            homepage_text_length,
+
+        # Very little server-rendered text usually means
+        # the site renders its content with JavaScript.
+
+        "likely_javascript_rendered":
+            homepage_text_length < 300,
+
+        "about_page_found": page_found(
+            "about"
         ),
 
-        "team_page_found": safe_get(
-            website_data,
-            "team_page_found",
-            False
+        "team_page_found": page_found(
+            "team"
         ),
 
-        "contact_page_found": (
-            important_pages.get(
-                "contact"
-            )
-            is not None
+        "contact_page_found": page_found(
+            "contact"
         ),
 
         "important_pages": {
 
-            "about": important_pages.get(
+            "about": page_summary(
                 "about"
             ),
 
-            "team": important_pages.get(
+            "team": page_summary(
                 "team"
             ),
 
-            "contact": important_pages.get(
+            "contact": page_summary(
                 "contact"
             )
         },
 
         "social_links_found": safe_get(
-            website_data,
-            "social_links_found",
-            0
+            social_presence,
+            "count",
+            len(social_links)
         ),
 
-        "social_links": safe_get(
-            website_data,
-            "social_links",
-            []
-        )[:10],
+        "social_links": social_links[:10],
 
         "possible_address": safe_get(
+            address,
+            "value"
+        ),
+
+        "derived_signals": safe_get(
             website_data,
-            "possible_address"
+            "derived_signals",
+            []
+        ),
+
+        "limitations": safe_get(
+            website_data,
+            "limitations",
+            []
         ),
 
         # Keep text compact for the LLM
 
         "homepage_text": homepage_text[:1500],
 
-        "about_text": about_text[:1200],
+        "about_text": page_text(
+            "about",
+            1200
+        ),
 
-        "team_text": team_text[:1200]
+        "team_text": page_text(
+            "team",
+            1200
+        )
     }
 
 
@@ -271,161 +390,6 @@ def normalize_github(github_data):
         "derived_signals",
         []
     )
-
-    top_repositories = safe_get(
-        repository_analysis,
-        "top_repositories",
-        []
-    )
-
-    compact_repositories = []
-
-    for repo in top_repositories[:10]:
-
-        compact_repositories.append({
-
-            "name":
-                repo.get("name"),
-
-            "description":
-                repo.get("description"),
-
-            "language":
-                repo.get("language"),
-
-            "stars":
-                repo.get("stars"),
-
-            "forks":
-                repo.get("forks"),
-
-            "updated_at":
-                repo.get("updated_at"),
-
-            "days_since_update":
-                repo.get(
-                    "days_since_update"
-                )
-        })
-
-    return {
-
-        "available": True,
-
-        "organization": {
-
-            "login":
-                organization.get("login"),
-
-            "name":
-                organization.get("name"),
-
-            "description":
-                organization.get(
-                    "description"
-                ),
-
-            "github_url":
-                organization.get(
-                    "github_url"
-                ),
-
-            "website":
-                organization.get(
-                    "website"
-                ),
-
-            "company":
-                organization.get(
-                    "company"
-                ),
-
-            "location":
-                organization.get(
-                    "location"
-                ),
-
-            "followers":
-                organization.get(
-                    "followers"
-                ),
-
-            "created_at":
-                organization.get(
-                    "created_at"
-                )
-        },
-
-        "organization_match": {
-
-            "confidence":
-                organization_match.get(
-                    "confidence"
-                ),
-
-            "score":
-                organization_match.get(
-                    "score"
-                ),
-
-            "reasons":
-                organization_match.get(
-                    "reasons",
-                    []
-                )
-        },
-
-        "repository_activity": {
-
-            "public_repo_count":
-                repository_analysis.get(
-                    "public_repo_count"
-                ),
-
-            "updated_last_30_days":
-                repository_analysis.get(
-                    "repositories_updated_last_30_days"
-                ),
-
-            "updated_last_90_days":
-                repository_analysis.get(
-                    "repositories_updated_last_90_days"
-                ),
-
-            "updated_last_365_days":
-                repository_analysis.get(
-                    "repositories_updated_last_365_days"
-                )
-        },
-
-        "languages":
-            repository_analysis.get(
-                "languages",
-                {}
-            ),
-
-        "total_stars":
-            repository_analysis.get(
-                "total_stars"
-            ),
-
-        "total_forks":
-            repository_analysis.get(
-                "total_forks"
-            ),
-
-        "top_repositories":
-            compact_repositories,
-
-        "derived_signals":
-            derived_signals,
-
-        "limitations":
-            github_data.get(
-                "limitations",
-                []
-            )
-    }
 
     # --------------------------------------------------------
     # TOP REPOSITORIES

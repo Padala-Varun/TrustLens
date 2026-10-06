@@ -111,6 +111,29 @@ def domains_match(company_domain, org_website):
     return False
 
 
+def same_brand(company_domain, org_website):
+    """
+    Same name on a different TLD.
+
+    stripe.com <-> stripe.dev -> True
+    """
+
+    if not company_domain or not org_website:
+        return False
+
+    org_labels = clean_domain(
+        org_website
+    ).split(".")
+
+    if len(org_labels) < 2:
+        return False
+
+    return (
+        org_labels[-2]
+        == get_company_name_from_domain(company_domain)
+    )
+
+
 # ============================================================
 # GITHUB API REQUEST HELPER
 # ============================================================
@@ -425,6 +448,7 @@ def find_best_organization(company_domain):
 
         return {
             "found": False,
+            "api_error": True,
             "error": search_result.get(
                 "error"
             )
@@ -458,10 +482,14 @@ def find_best_organization(company_domain):
         # Organization website matches company domain
         # --------------------------------------------
 
+        domain_link = 0
+
         if domains_match(
             company_domain,
             details.get("blog")
         ):
+
+            domain_link = 2
 
             score += 100
 
@@ -469,6 +497,21 @@ def find_best_organization(company_domain):
                 "GitHub organization website "
                 "matches or belongs to the "
                 "company domain."
+            )
+
+        elif same_brand(
+            company_domain,
+            details.get("blog")
+        ):
+
+            domain_link = 1
+
+            score += 70
+
+            reasons.append(
+                "GitHub organization website uses "
+                "the company name on a different "
+                "domain extension."
             )
 
         # --------------------------------------------
@@ -508,7 +551,12 @@ def find_best_organization(company_domain):
 
             "score": score,
 
-            "reasons": reasons
+            "reasons": reasons,
+
+            "domain_link": domain_link,
+
+            "exact_login":
+                org_login.lower() == company_name
         })
 
     if not candidates:
@@ -521,10 +569,17 @@ def find_best_organization(company_domain):
             )
         }
 
-    # Sort by highest score
+    # Prefer the main org: linked to the company's website
+    # AND named exactly like the company (stripe over
+    # stripe-samples). Then stronger website links, then score.
 
     candidates.sort(
-        key=lambda item: item["score"],
+        key=lambda item: (
+            item["domain_link"] > 0
+            and item["exact_login"],
+            item["domain_link"],
+            item["score"]
+        ),
         reverse=True
     )
 
@@ -599,9 +654,16 @@ def find_best_organization(company_domain):
 # GET ALL ORGANIZATION REPOSITORIES
 # ============================================================
 
+MAX_REPOSITORY_PAGES = 3
+
+
 def get_organization_repositories(org_login):
     """
-    Fetch ALL public repositories using pagination.
+    Fetch public repositories using pagination.
+
+    Capped at MAX_REPOSITORY_PAGES (most recently updated
+    first) so very large organizations do not exhaust
+    the API rate limit.
     """
 
     all_repositories = []
@@ -609,7 +671,7 @@ def get_organization_repositories(org_login):
     page = 1
     per_page = 100
 
-    while True:
+    while page <= MAX_REPOSITORY_PAGES:
 
         result = github_get(
 
@@ -1147,6 +1209,14 @@ def collect_github_evidence(company_domain):
                     "error"
                 ),
 
+            # False means "no matching organization",
+            # which is neutral evidence, not a failure
+            "api_error":
+                organization_result.get(
+                    "api_error",
+                    False
+                ),
+
             "limitations": [
 
                 "A GitHub organization may exist "
@@ -1205,6 +1275,21 @@ def collect_github_evidence(company_domain):
             repositories
         )
     )
+
+    # Fetching is capped, so prefer the count GitHub reports
+
+    reported_repo_count = (
+        organization.get("public_repos")
+        or 0
+    )
+
+    if reported_repo_count > repo_analysis[
+        "public_repo_count"
+    ]:
+
+        repo_analysis[
+            "public_repo_count"
+        ] = reported_repo_count
 
     # ----------------------------------------
     # Create evidence signals

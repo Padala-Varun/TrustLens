@@ -26,7 +26,13 @@ client = Mistral(
 )
 
 
-MODEL = "ministral-14b-2512"
+# Ministral 3 14B: the largest model allowed on Mistral's free
+# plan (medium/small/magistral have a 0 req/min limit there).
+# Override with MISTRAL_MODEL on a paid plan.
+MODEL = os.getenv(
+    "MISTRAL_MODEL",
+    "ministral-14b-2512"
+)
 
 
 # ============================================================
@@ -145,6 +151,67 @@ def clean_string(value, default=""):
     return str(value).strip()
 
 
+def strip_markdown(text):
+    """
+    The UI renders plain text, so **bold** and __bold__
+    markers would show up literally.
+    """
+
+    return re.sub(
+        r"(\*\*|__)(.+?)\1",
+        r"\2",
+        text
+    )
+
+
+def clean_signal_list(value, detail_key):
+    """
+    Ensure every signal is a dict with string fields.
+
+    The model occasionally returns bare strings instead
+    of objects, which would break the CLI and UI cards.
+    """
+
+    def text(field):
+        return strip_markdown(
+            clean_string(field)
+        )
+
+    cleaned = []
+
+    for item in clean_list(value):
+
+        if isinstance(item, dict):
+
+            cleaned.append({
+
+                "signal": text(
+                    item.get("signal")
+                ),
+
+                "source": text(
+                    item.get("source")
+                ),
+
+                detail_key: text(
+                    item.get(detail_key)
+                )
+            })
+
+        elif item:
+
+            cleaned.append({
+
+                "signal": text(item),
+
+                "source": "",
+
+                detail_key: ""
+            })
+
+    return cleaned
+
+
 # ============================================================
 # ANALYSIS VALIDATION
 # ============================================================
@@ -241,29 +308,39 @@ def validate_analysis(analysis):
     # CLEAN SIGNAL LISTS
     # --------------------------------------------------------
 
-    positive_signals = clean_list(
+    positive_signals = clean_signal_list(
         analysis.get(
             "positive_signals"
-        )
+        ),
+        "evidence"
     )
 
-    neutral_signals = clean_list(
+    neutral_signals = clean_signal_list(
         analysis.get(
             "neutral_signals"
-        )
+        ),
+        "explanation"
     )
 
-    risk_signals = clean_list(
+    risk_signals = clean_signal_list(
         analysis.get(
             "risk_signals"
-        )
+        ),
+        "evidence"
     )
 
-    missing_information = clean_list(
-        analysis.get(
-            "missing_information"
+    missing_information = [
+
+        clean_string(item)
+
+        for item in clean_list(
+            analysis.get(
+                "missing_information"
+            )
         )
-    )
+
+        if item
+    ]
 
     evidence_trail = clean_list(
         analysis.get(
@@ -332,9 +409,11 @@ def validate_analysis(analysis):
 
         "confidence": confidence,
 
-        "summary": clean_string(
-            analysis.get(
-                "summary"
+        "summary": strip_markdown(
+            clean_string(
+                analysis.get(
+                    "summary"
+                )
             )
         ),
 
@@ -349,9 +428,11 @@ def validate_analysis(analysis):
         "evidence_trail":
             cleaned_evidence_trail,
 
-        "reasoning": clean_string(
-            analysis.get(
-                "reasoning"
+        "reasoning": strip_markdown(
+            clean_string(
+                analysis.get(
+                    "reasoning"
+                )
             )
         )
     }
@@ -717,6 +798,14 @@ A low-confidence match should not be treated as proof.
 16. Do not let one collector's missing data override
 strong evidence from other collectors.
 
+17. If website evidence has
+"likely_javascript_rendered": true, thin homepage
+text and undiscovered pages are a collector
+limitation, not a company signal.
+
+18. Write all text fields as plain text without
+Markdown formatting.
+
 Return ONLY valid JSON.
 
 Use EXACTLY this structure:
@@ -830,7 +919,11 @@ def analyze_evidence(
                 }
             ],
 
-            temperature=0.1
+            temperature=0.1,
+
+            response_format={
+                "type": "json_object"
+            }
         )
 
         response_text = (
@@ -856,11 +949,22 @@ def analyze_evidence(
 
     except Exception as error:
 
+        message = str(error)
+
+        if "429" in message:
+
+            message += (
+                f" (Model '{MODEL}' may not be available on "
+                f"your Mistral plan, or the per-minute limit "
+                f"was reached. On the free plan use "
+                f"MISTRAL_MODEL=ministral-14b-2512.)"
+            )
+
         return {
 
             "success": False,
 
-            "error": str(error)
+            "error": message
         }
 
 

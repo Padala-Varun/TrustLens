@@ -75,17 +75,6 @@
   }
 
 
-  // ── Clean Domain Input ───────────────────────────────────
-  function cleanDomain(domain) {
-    return domain
-      .trim()
-      .toLowerCase()
-      .replace(/^https?:\/\//, '')
-      .replace(/^www\./, '')
-      .split('/')[0];
-  }
-
-
   // ── Reset UI ─────────────────────────────────────────────
   function resetUI() {
     resultsSection.classList.remove('visible');
@@ -381,10 +370,12 @@
   });
 
 
-  // Backend URL: Modal in production, localhost for local dev
-  const API_BASE = window.location.hostname === 'localhost'
-    ? '/api/analyze/stream'
-    : 'https://padalavarun0--trustlens-analyze.modal.run';
+  // Backend URL: Modal when hosted on Vercel, otherwise the Flask
+  // server that served this page (localhost, 127.0.0.1, LAN IP).
+  const MODAL_API_URL = 'https://yakshmajas--trustlens-analyze.modal.run';
+  const API_BASE = window.location.hostname.endsWith('vercel.app')
+    ? MODAL_API_URL
+    : '/api/analyze/stream';
 
   // ── SSE Analysis ─────────────────────────────────────────
   function startAnalysis(domain) {
@@ -394,11 +385,16 @@
     analyzeBtn.disabled = true;
     progressSection.classList.add('visible');
 
-    const url = window.location.hostname === 'localhost'
-      ? `${API_BASE}?domain=${encodeURIComponent(domain)}`
-      : `${API_BASE}?domain=${encodeURIComponent(domain)}`;
+    const url = `${API_BASE}?domain=${encodeURIComponent(domain)}`;
 
     currentEventSource = new EventSource(url);
+
+    currentEventSource.addEventListener('resolved', (e) => {
+      try {
+        const data = JSON.parse(e.data);
+        showToast(`Resolved "${data.input}" → ${data.domain}`, 'info', 6000);
+      } catch (err) { /* ignore */ }
+    });
 
     currentEventSource.addEventListener('step_start', (e) => {
       try {
@@ -418,7 +414,8 @@
       try {
         const data = JSON.parse(e.data);
         setStepError(data.step);
-        showToast(`Step "${data.step}" encountered an issue`, 'error');
+        const detail = data.error ? `: ${data.error}` : '';
+        showToast(`Step "${data.step}" failed${detail}`, 'error', 8000);
       } catch (err) { /* ignore */ }
     });
 
@@ -430,7 +427,10 @@
         analyzeBtn.classList.remove('loading');
         analyzeBtn.disabled = false;
 
-        if (data.success) {
+        if (data.success && data.result?.analysis?.success === false) {
+          // Collectors ran but the AI step failed: show why instead of a 0 score
+          showError(`AI analysis failed: ${data.result.analysis.error || 'Unknown error'}`);
+        } else if (data.success) {
           showToast('Analysis complete!', 'success');
           renderResults(data.result);
         } else {
@@ -477,22 +477,21 @@
 
 
   // ── Event Listeners ──────────────────────────────────────
+  // The server accepts a domain or a company name and normalizes it
   searchForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const raw = domainInput.value;
-    if (!raw.trim()) return;
-    const domain = cleanDomain(raw);
-    if (!domain) {
-      showToast('Please enter a valid domain', 'error');
+    const query = domainInput.value.trim();
+    if (!query) {
+      showToast('Please enter a company name or domain', 'error');
       return;
     }
-    startAnalysis(domain);
+    startAnalysis(query);
   });
 
   errorRetryBtn.addEventListener('click', () => {
-    const raw = domainInput.value;
-    if (raw.trim()) {
-      startAnalysis(cleanDomain(raw));
+    const query = domainInput.value.trim();
+    if (query) {
+      startAnalysis(query);
     }
   });
 

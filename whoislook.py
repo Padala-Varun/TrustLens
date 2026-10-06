@@ -16,12 +16,34 @@ def clean_domain(domain):
 
 
 def normalize_datetime(value):
+
+    # python-whois returns unparsed dates as strings
+    # for some TLDs
+    if isinstance(value, str):
+
+        try:
+            value = datetime.fromisoformat(
+                value.strip().replace("Z", "+00:00")
+            )
+
+        except ValueError:
+            return None
+
     if isinstance(value, datetime):
 
         if value.tzinfo is not None:
             value = value.replace(tzinfo=None)
 
-    return value
+        return value
+
+    if isinstance(value, date):
+        return datetime(
+            value.year,
+            value.month,
+            value.day
+        )
+
+    return None
 
 
 def normalize_date(value, mode="min"):
@@ -29,9 +51,12 @@ def normalize_date(value, mode="min"):
     if isinstance(value, list):
 
         values = [
-            normalize_datetime(item)
-            for item in value
-            if item is not None
+            normalized
+            for normalized in (
+                normalize_datetime(item)
+                for item in value
+            )
+            if normalized is not None
         ]
 
         if not values:
@@ -137,12 +162,12 @@ def get_domain_info(domain):
 
     domain = clean_domain(domain)
 
-    try:
+    print(
+        f"\n🔍 Looking up WHOIS information for: "
+        f"{domain}"
+    )
 
-        print(
-            f"\n🔍 Looking up WHOIS information for: "
-            f"{domain}"
-        )
+    try:
 
         raw = whois.whois(domain)
 

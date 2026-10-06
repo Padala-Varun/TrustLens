@@ -112,6 +112,8 @@ def analyze_stream(domain: str = ""):
     """
     SSE endpoint that runs the full TrustLens pipeline
     and streams progress events.
+
+    Accepts a domain (stripe.com) or a company name (Stripe).
     """
     import sys
     sys.path.insert(0, "/app")
@@ -119,7 +121,8 @@ def analyze_stream(domain: str = ""):
     import traceback
     from fastapi.responses import StreamingResponse
 
-    domain = clean_domain(domain)
+    user_input = domain.strip()
+    domain = clean_domain(user_input)
 
     if not domain:
         def error_gen():
@@ -137,18 +140,47 @@ def analyze_stream(domain: str = ""):
         )
 
     def sse_generator():
+        nonlocal domain
+
         def send_event(event_type, data):
             payload = json.dumps(make_json_safe(data))
             return f"event: {event_type}\ndata: {payload}\n\n"
 
+        def finish_step(step, result, failure_is_neutral=False):
+            """step_error when a collector returned success: false."""
+            if result.get("success") or failure_is_neutral:
+                return send_event("step_done", {"step": step})
+            return send_event("step_error", {
+                "step": step,
+                "error": result.get("error") or "Unknown error."
+            })
+
         try:
+            # ── Step 0: Company name -> domain ─────────
+            from tavily_collector import resolve_company_domain
+            resolution = resolve_company_domain(user_input)
+
+            if not resolution["success"]:
+                yield send_event("error_event", {
+                    "error": resolution["error"]
+                })
+                return
+
+            domain = resolution["domain"]
+
+            if resolution.get("resolved"):
+                yield send_event("resolved", {
+                    "input": user_input,
+                    "domain": domain
+                })
+
             # ── Step 1: WHOIS ──────────────────────────
             yield send_event("step_start", {"step": "whois"})
 
             try:
                 from whoislook import get_domain_info
                 whois_result = get_domain_info(domain)
-                yield send_event("step_done", {"step": "whois"})
+                yield finish_step("whois", whois_result)
             except Exception as e:
                 traceback.print_exc()
                 whois_result = {"success": False, "error": str(e)}
@@ -162,7 +194,7 @@ def analyze_stream(domain: str = ""):
             try:
                 from websiteScrap import scrape_company_website
                 website_result = scrape_company_website(domain)
-                yield send_event("step_done", {"step": "website"})
+                yield finish_step("website", website_result)
             except Exception as e:
                 traceback.print_exc()
                 website_result = {"success": False, "error": str(e)}
@@ -176,7 +208,12 @@ def analyze_stream(domain: str = ""):
             try:
                 from github_collector import collect_github_evidence
                 github_result = collect_github_evidence(domain)
-                yield send_event("step_done", {"step": "github"})
+                # No matching org is neutral; only API errors fail
+                yield finish_step(
+                    "github",
+                    github_result,
+                    failure_is_neutral=not github_result.get("api_error")
+                )
             except Exception as e:
                 traceback.print_exc()
                 github_result = {"success": False, "error": str(e)}
@@ -190,7 +227,7 @@ def analyze_stream(domain: str = ""):
             try:
                 from tavily_collector import collect_search_evidence
                 tavily_result = collect_search_evidence(domain)
-                yield send_event("step_done", {"step": "tavily"})
+                yield finish_step("tavily", tavily_result)
             except Exception as e:
                 traceback.print_exc()
                 tavily_result = {"success": False, "error": str(e)}
@@ -228,7 +265,7 @@ def analyze_stream(domain: str = ""):
             try:
                 from mistral_reasoner import analyze_evidence
                 analysis_result = analyze_evidence(evidence_packet)
-                yield send_event("step_done", {"step": "analysis"})
+                yield finish_step("analysis", analysis_result)
             except Exception as e:
                 traceback.print_exc()
                 analysis_result = {"success": False, "error": str(e)}

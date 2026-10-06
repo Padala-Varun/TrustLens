@@ -20,6 +20,13 @@ from flask import (
 
 from dotenv import load_dotenv
 
+# ── UTF-8 console output ───────────────────────────────────
+# Collectors print emoji; on Windows a non-UTF-8 stdout raises
+# UnicodeEncodeError and makes every collector fail.
+for stream in (sys.stdout, sys.stderr):
+    if hasattr(stream, "reconfigure"):
+        stream.reconfigure(encoding="utf-8", errors="replace")
+
 # ── Ensure project root is importable ──────────────────────
 sys.path.insert(
     0,
@@ -37,7 +44,8 @@ from github_collector import (
 )
 
 from tavily_collector import (
-    collect_search_evidence
+    collect_search_evidence,
+    resolve_company_domain
 )
 
 from evidence_normalizer import (
@@ -124,15 +132,18 @@ def analyze_stream():
     Server-Sent Events endpoint that runs the full
     TrustLens pipeline and streams progress events.
 
+    Accepts a domain (stripe.com) or a company name (Stripe).
+
     Events emitted:
+      - resolved    { input: "Stripe", domain: "stripe.com" }
       - step_start  { step: "whois" }
       - step_done   { step: "whois" }
       - step_error  { step: "whois", error: "..." }
       - complete    { success: true, result: { ... } }
       - error_event { error: "..." }
     """
-    domain = request.args.get('domain', '').strip()
-    domain = clean_domain(domain)
+    user_input = request.args.get('domain', '').strip()
+    domain = clean_domain(user_input)
 
     if not domain:
         def error_stream():
@@ -162,14 +173,44 @@ def analyze_stream():
             f"event: {event_type}\ndata: {payload}\n\n"
         )
 
+    def finish_step(step, result, failure_is_neutral=False):
+        """Report step_error when a collector returned success: false."""
+        if result.get("success") or failure_is_neutral:
+            send_event("step_done", {"step": step})
+        else:
+            send_event("step_error", {
+                "step": step,
+                "error": result.get("error") or "Unknown error."
+            })
+
     def run_pipeline():
+        nonlocal domain
+
         try:
+            # ── Step 0: Company name -> domain ─────────
+            resolution = resolve_company_domain(user_input)
+
+            if not resolution["success"]:
+                send_event("error_event", {
+                    "error": resolution["error"]
+                })
+                msg_queue.put(None)
+                return
+
+            domain = resolution["domain"]
+
+            if resolution.get("resolved"):
+                send_event("resolved", {
+                    "input": user_input,
+                    "domain": domain
+                })
+
             # ── Step 1: WHOIS ──────────────────────────
             send_event("step_start", {"step": "whois"})
 
             try:
                 whois_result = get_domain_info(domain)
-                send_event("step_done", {"step": "whois"})
+                finish_step("whois", whois_result)
             except Exception as e:
                 traceback.print_exc()
                 whois_result = {
@@ -188,7 +229,7 @@ def analyze_stream():
                 website_result = scrape_company_website(
                     domain
                 )
-                send_event("step_done", {"step": "website"})
+                finish_step("website", website_result)
             except Exception as e:
                 traceback.print_exc()
                 website_result = {
@@ -207,7 +248,12 @@ def analyze_stream():
                 github_result = collect_github_evidence(
                     domain
                 )
-                send_event("step_done", {"step": "github"})
+                # No matching org is neutral; only API errors fail
+                finish_step(
+                    "github",
+                    github_result,
+                    failure_is_neutral=not github_result.get("api_error")
+                )
             except Exception as e:
                 traceback.print_exc()
                 github_result = {
@@ -226,7 +272,7 @@ def analyze_stream():
                 tavily_result = collect_search_evidence(
                     domain
                 )
-                send_event("step_done", {"step": "tavily"})
+                finish_step("tavily", tavily_result)
             except Exception as e:
                 traceback.print_exc()
                 tavily_result = {
@@ -269,7 +315,7 @@ def analyze_stream():
                 analysis_result = analyze_evidence(
                     evidence_packet
                 )
-                send_event("step_done", {"step": "analysis"})
+                finish_step("analysis", analysis_result)
             except Exception as e:
                 traceback.print_exc()
                 analysis_result = {
